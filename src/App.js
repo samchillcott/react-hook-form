@@ -4,23 +4,38 @@ import { useForm } from 'react-hook-form';
 
 export default function App() {
   const {
-    register, handleSubmit, watch,
+    register, handleSubmit, watch, formState: { errors },
   } = useForm();
   const onSubmit = (data) => console.log(data);
 
   console.log(watch());
+  console.log(errors);
 
   return (
-    /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
     <form onSubmit={handleSubmit(onSubmit)}>
-      {/* register your input into the hook by invoking the "register" function */}
-      <input placeholder="email" {...register('email', { required: true })} />
-
-      {/* include validation with required or other standard HTML validation rules */}
-      <input placeholder="password" {...register('password', { required: true })} />
-      {/* errors will return when field validation fails  */}
-      {/* {errors.exampleRequired && <span>This field is required</span>} */}
-
+      <label htmlFor="email">
+        Email Address
+        <input id="email" {...register('email', { required: 'This is required' })} />
+        {errors.email && <p>{errors.email.message}</p>}
+      </label>
+      <label htmlFor="password">
+        Password
+        <input
+          {...register('password', {
+            required: 'This is required',
+            minLength: {
+              value: 5,
+              message: 'Password must be at least 5 characters long',
+            },
+            // valueAsNumber: true,
+            // valueAsNumber: {
+            //   value: true,
+            //   message: 'Password must be a number',
+            // },
+          })}
+        />
+        {errors.password && <p>{errors.password.message}</p>}
+      </label>
       <input type="submit" />
     </form>
   );
