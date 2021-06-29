@@ -29,21 +29,34 @@ export default function App() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="firstName">
         First Name
-        <input id="firstName" {...register('firstName')} />
+        <input
+          id="firstName"
+          autoComplete="on"
+          {...register('firstName')}
+        />
         <p>
           {errors.firstName?.message}
         </p>
       </label>
       <label htmlFor="lastName">
         Last Name
-        <input id="lastName" {...register('lastName')} />
+        <input
+          id="lastName"
+          autoComplete="on"
+          {...register('lastName')}
+        />
         <p>
           {errors.lastName?.message}
         </p>
       </label>
       <label htmlFor="email">
         Email Address
-        <input id="email" {...register('email')} />
+        <input
+          id="email"
+          type="email"
+          autoComplete="on"
+          {...register('email')}
+        />
         <p>
           {errors.email?.message}
         </p>
@@ -51,7 +64,9 @@ export default function App() {
       <label htmlFor="password">
         Password
         <input
+          id="password"
           type="password"
+          autoComplete="on"
           {...register('password')}
         />
         <p>
